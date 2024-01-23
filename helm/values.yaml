@@ -1,0 +1,87 @@
+microservice-chart:
+  namespace: "idpay"
+  nameOverride: ""
+  fullnameOverride: ""
+
+#TODO
+#  livenessProbe:
+#    httpGet:
+#      path: /actuator/health/liveness
+#      port: 8080
+#    initialDelaySeconds: 120
+#    failureThreshold: 15
+#    periodSeconds: 10
+#
+#  readinessProbe:
+#    httpGet:
+#      path: /actuator/health/readiness
+#      port: 8080
+#    initialDelaySeconds: 125
+#    failureThreshold: 15
+#    periodSeconds: 10
+
+  deployment:
+    create: true
+
+  service:
+    create: true
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    create: true
+    path: /idpaykafkaconnect/(.*)
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+#TODO
+#  securityContext:
+#    allowPrivilegeEscalation: false
+#    runAsNonRoot: true
+#    runAsUser: 10000
+#    runAsGroup: 10000
+
+  envConfig:
+    MONGODB_DBNAME: idpay
+    APPLICATIONINSIGHTS_ROLE_NAME: "idpaykafkaconnect"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: "OFF"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
+    APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+    ENABLE_AUDIT_APPENDER: "TRUE"
+    KAFKA_COMMANDS_GROUP_ID: "idpay-commands-kafka-connect-consumer-group"
+    DELETE_PAGINATION_SIZE: "100"
+    DELETE_DELAY_TIME: "1000"
+
+  externalConfigMapValues:
+    idpay-common:
+      TZ: TZ
+
+    rest-client:
+
+    idpay-eventhub-01:
+      KAFKA_BROKER: kafka_broker
+      KAFKA_ERRORS_BROKER: kafka_broker
+
+  envSecret:
+    COSMOS_CONNECTION_STRING: mongodb-connection-string
+    CONNECT_SASL_JAAS_CONFIG:
+
+  # nodeSelector: {}
+
+  # tolerations: []
+
+  # affinity: {}
+
+  externalConfigMapFiles:
+    create: true
+    configMaps:
+      - name: appinsights-config
+        key: applicationinsights.json
