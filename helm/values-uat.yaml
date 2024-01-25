@@ -1,6 +1,6 @@
 microservice-chart:
   image:
-    repository: cstarucommonacr.azurecr.io/idpaypayment
+    repository: cstarucommonacr.azurecr.io/idpaykafkaconnect
     tag: latest
     pullPolicy: Always
 
