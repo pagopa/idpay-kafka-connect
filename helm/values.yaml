@@ -70,16 +70,16 @@ microservice-chart:
     idpay-eventhub-00:
       BOOTSTRAP_SERVERS: kafka_broker
       GROUP_ID: kafka-connect-consumer-group
-      CONFIG_STORAGE_TOPIC: "poc-cdc-cluster-configs"
-      OFFSET_STORAGE_TOPIC: "poc-cdc-cluster-offsets"
-      STATUS_STORAGE_TOPIC: "poc-cdc-cluster-status"
+      CONFIG_STORAGE_TOPIC: poc-cdc-cluster-configs
+      OFFSET_STORAGE_TOPIC: poc-cdc-cluster-offsets
+      STATUS_STORAGE_TOPIC: poc-cdc-cluster-status
       CONNECT_SECURITY_PROTOCOL: kafka_security_protocol
       CONNECT_SASL_MECHANISM: kafka_sasl_mechanism
       CONNECT_PRODUCER_SECURITY_PROTOCOL: kafka_security_protocol
       CONNECT_PRODUCER_SASL_MECHANISM: kafka_sasl_mechanism
-      CONNECT_METADATA_MAX_AGE_MS: "180000"
-      CONNECT_CONNECTIONS_MAX_IDLE_MS: "180000"
-      CONNECT_MAX_REQUEST_SIZE: "1000000"
+      CONNECT_METADATA_MAX_AGE_MS: 180000
+      CONNECT_CONNECTIONS_MAX_IDLE_MS: 180000
+      CONNECT_MAX_REQUEST_SIZE: 1000000
 
   envSecret:
     COSMOS_CONNECTION_STRING: mongodb-connection-string
