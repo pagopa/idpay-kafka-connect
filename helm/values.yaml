@@ -83,8 +83,8 @@ microservice-chart:
 
   envSecret:
     COSMOS_CONNECTION_STRING: mongodb-connection-string
-    CONNECT_SASL_JAAS_CONFIG: evh-root-jaas-config-idpay-00
-    CONNECT_PRODUCER_SASL_JAAS_CONFIG: evh-root-jaas-config-idpay-00
+    CONNECT_SASL_JAAS_CONFIG: evh-root-sasl-jaas-config-idpay-00
+    CONNECT_PRODUCER_SASL_JAAS_CONFIG: evh-root-sasl-jaas-config-idpay-00
 
   # nodeSelector: {}
 
