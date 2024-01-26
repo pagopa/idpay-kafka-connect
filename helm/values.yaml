@@ -56,6 +56,9 @@ microservice-chart:
     CONNECT_METADATA_MAX_AGE_MS: "180000"
     CONNECT_CONNECTIONS_MAX_IDLE_MS: "180000"
     CONNECT_MAX_REQUEST_SIZE: "1000000"
+    CONFIG_STORAGE_TOPIC: idpay-cdc-configs
+    OFFSET_STORAGE_TOPIC: idpay-cdc-offsets
+    STATUS_STORAGE_TOPIC: idpay-cdc-status
 
     CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
     CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
@@ -72,9 +75,6 @@ microservice-chart:
     idpay-eventhub-00:
       BOOTSTRAP_SERVERS: kafka_broker
       GROUP_ID: kafka-connect-consumer-group
-      CONFIG_STORAGE_TOPIC: poc-cdc-cluster-configs
-      OFFSET_STORAGE_TOPIC: poc-cdc-cluster-offsets
-      STATUS_STORAGE_TOPIC: poc-cdc-cluster-status
       CONNECT_SECURITY_PROTOCOL: kafka_security_protocol
       CONNECT_SASL_MECHANISM: kafka_sasl_mechanism
       CONNECT_PRODUCER_SECURITY_PROTOCOL: kafka_security_protocol
