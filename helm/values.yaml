@@ -53,6 +53,9 @@ microservice-chart:
     APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: "OFF"
     APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
     APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+    CONNECT_METADATA_MAX_AGE_MS: "180000"
+    CONNECT_CONNECTIONS_MAX_IDLE_MS: "180000"
+    CONNECT_MAX_REQUEST_SIZE: "1000000"
 
     CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
     CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
@@ -65,7 +68,6 @@ microservice-chart:
     idpay-common:
       TZ: TZ
 
-    rest-client:
 
     idpay-eventhub-00:
       BOOTSTRAP_SERVERS: kafka_broker
@@ -77,9 +79,7 @@ microservice-chart:
       CONNECT_SASL_MECHANISM: kafka_sasl_mechanism
       CONNECT_PRODUCER_SECURITY_PROTOCOL: kafka_security_protocol
       CONNECT_PRODUCER_SASL_MECHANISM: kafka_sasl_mechanism
-      CONNECT_METADATA_MAX_AGE_MS: "180000"
-      CONNECT_CONNECTIONS_MAX_IDLE_MS: "180000"
-      CONNECT_MAX_REQUEST_SIZE: "1000000"
+
 
   envSecret:
     COSMOS_CONNECTION_STRING: mongodb-connection-string
