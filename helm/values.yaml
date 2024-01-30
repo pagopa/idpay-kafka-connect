@@ -25,7 +25,7 @@ microservice-chart:
   service:
     create: true
     type: ClusterIP
-    port: 8080
+    port: 8083
 
   ingress:
     create: true
