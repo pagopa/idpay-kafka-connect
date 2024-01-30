@@ -9,7 +9,7 @@ microservice-chart:
       port: 8083
     initialDelaySeconds: 120
     failureThreshold: 15
-    periodSeconds: 10
+    periodSeconds: 30
 
   readinessProbe:
     httpGet:
@@ -17,7 +17,7 @@ microservice-chart:
       port: 8083
     initialDelaySeconds: 125
     failureThreshold: 15
-    periodSeconds: 10
+    periodSeconds: 30
 
   deployment:
     create: true
@@ -30,6 +30,7 @@ microservice-chart:
   ingress:
     create: true
     path: /idpaykafkaconnect/(.*)
+    servicePort: 8083
 
   serviceAccount:
     create: false
