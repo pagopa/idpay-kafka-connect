@@ -15,6 +15,5 @@ COPY --from=deps /deps/applicationinsights-agent.jar .
 
 
 USER root
-RUN chmod 777 -R /kafka/connect/
-RUN chown kafka:kafka -R applicationinsights-agent.jar
+RUN chmod 777 -R /kafka/connect/ && chown kafka:kafka -R applicationinsights-agent.jar
 USER kafka
