@@ -12,7 +12,7 @@ microservice-chart:
       memory: "256Mi"
       cpu: "40m"
     limits:
-      memory: "4Gi"
+      memory: "512Mi"
       cpu: "300m"
 
   autoscaling:
@@ -29,6 +29,7 @@ microservice-chart:
 
   envConfig:
     JAVA_TOOL_OPTIONS: "-javaagent:applicationinsights-agent.jar -Dapplicationinsights.configuration.file=/mnt/file-config-external/appinsights-config/applicationinsights.json"
+    HEAP_OPTS: "-Xms256m -Xmx512m"
 
   envSecret:
     aks-api-url: cstar-d-weu-dev01-aks-apiserver-url
