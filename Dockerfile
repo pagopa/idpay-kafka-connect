@@ -13,7 +13,7 @@ FROM debezium/connect-base:2.4.1.Final@sha256:52297b4d15b2eff0a19b44337e34a9cd31
 COPY --from=deps /deps/mongo-kafka-connect/ /kafka/connect/mongo-kafka-connect/
 COPY --from=deps /deps/applicationinsights-agent.jar .
 
-
 USER root
 RUN chmod 777 -R /kafka/connect/ && chown kafka:kafka -R applicationinsights-agent.jar
+RUN chmod 777 -R /tmp
 USER kafka

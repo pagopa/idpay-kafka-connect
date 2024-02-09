@@ -4,10 +4,16 @@ microservice-chart:
   fullnameOverride: ""
 
   livenessProbe:
+    # TODO actually not supported by
+    #exec:
+    #  command:
+    #    - sh
+    #    - -c
+    #    - for connector in $(curl -s -X GET http://localhost:8083/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET http://localhost:8083/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
     httpGet:
       path: /connectors
       port: 8083
-    initialDelaySeconds: 120
+    initialDelaySeconds: 60
     failureThreshold: 15
     periodSeconds: 30
 
@@ -15,7 +21,7 @@ microservice-chart:
     httpGet:
       path: /connectors
       port: 8083
-    initialDelaySeconds: 125
+    initialDelaySeconds: 65
     failureThreshold: 15
     periodSeconds: 30
 
