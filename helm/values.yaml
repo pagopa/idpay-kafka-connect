@@ -3,13 +3,13 @@ microservice-chart:
   nameOverride: ""
   fullnameOverride: ""
 
+  # TODO actually not supported by (ADD in livenessProbe instead of httpGet)
+  #exec:
+  #  command:
+  #    - sh
+  #    - -c
+  #    - for connector in $(curl -s -X GET http://localhost:8083/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET http://localhost:8083/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
   livenessProbe:
-    # TODO actually not supported by
-    #exec:
-    #  command:
-    #    - sh
-    #    - -c
-    #    - for connector in $(curl -s -X GET http://localhost:8083/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET http://localhost:8083/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
     httpGet:
       path: /connectors
       port: 8083
