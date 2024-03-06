@@ -45,7 +45,7 @@ microservice-chart:
       type: RuntimeDefault
 
   securityContext:
-    allowCONNECTPrivilegeEscalation: false
+    allowPrivilegeEscalation: false
     runAsNonRoot: true
     runAsUser: 1001
     runAsGroup: 1001
