@@ -7,7 +7,6 @@ microservice-chart:
     create: true
     handlerType: 'exec'
     exec:
-      command:
         command:
           - sh
           - -c
