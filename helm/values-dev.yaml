@@ -14,7 +14,7 @@ microservice-chart:
       command:
         - "/bin/sh"
         - "-c"
-        - "for connector in $(curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors | grep -Eo '[^]\",\[]+'); do curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$']"
+        - for connector in $(curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$']
     initialDelaySeconds: 20
     periodSeconds: 30
     failureThreshold: 15
