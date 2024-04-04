@@ -9,8 +9,11 @@ microservice-chart:
     exec:
       command:
         - sh
-        - -c
-        - for connector in $(curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
+        - "-c"
+        - | 
+          for connector in $(curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors | grep -Eo '[^]",\[]+'); 
+          do curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l; 
+          done | grep -Ez '^(0[[:space:]])+$'
     initialDelaySeconds: 20
     periodSeconds: 30
     failureThreshold: 15
