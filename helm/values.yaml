@@ -9,7 +9,7 @@ microservice-chart:
       command:
         - sh
         - "-c"
-        - for connector in $(curl -s -X GET https://connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET https://connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
+        - for connector in $(curl -s -X GET /connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET /connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
     initialDelaySeconds: 60
     periodSeconds: 30
     failureThreshold: 15
