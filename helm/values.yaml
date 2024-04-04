@@ -5,12 +5,10 @@ microservice-chart:
 
   livenessProbe:
     create: true
+    handlerType: 'exec'
     exec:
-      command:
-        - sh
-        - "-c"
-        - for connector in $(curl -s -X GET /connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET /connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$'
-    initialDelaySeconds: 60
+      command:["/bin/sh", "-c", '[for connector in $(curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors | grep -Eo '[^]",\[]+'); do curl -s -X GET https://${{microservice-chart.ingress.host}}/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l; done | grep -Ez '^(0[[:space:]])+$']']
+    initialDelaySeconds: 20
     periodSeconds: 30
     failureThreshold: 15
     timeoutSeconds: 5
