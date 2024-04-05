@@ -4,14 +4,21 @@ microservice-chart:
   fullnameOverride: ""
 
   livenessProbe:
+    create: true
     handlerType: 'exec'
     exec:
       command:
         - sh
         - '-c'
-        - |
-          for connector in $(curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors | grep -Eo '[^]",\[]+');
-          do curl -s -X GET https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors/$connector/status | grep FAILED | wc -l;
+        - >
+          for connector in $(curl -s -X GET
+          https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors
+          | grep -Eo '[^]",\[]+');
+
+          do curl -s -X GET
+          https://dev01.idpay.internal.dev.cstar.pagopa.it/idpaykafkaconnect/connectors/$connector/status
+          | grep FAILED | wc -l;
+  
           done | grep -Ez '^(0[[:space:]])+$'
     initialDelaySeconds: 60
     periodSeconds: 30
