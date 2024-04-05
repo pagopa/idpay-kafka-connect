@@ -4,14 +4,13 @@ microservice-chart:
   fullnameOverride: ""
 
   livenessProbe:
-    create: true
     handlerType: 'exec'
     exec:
         command:
-          - sh
+          - "/bin/sh"
           - "-c"
-          - execLivenessProbe.sh
-    initialDelaySeconds: 20
+          - /idpay-kafka-connect/execLivenessProbe.sh
+    initialDelaySeconds: 60
     periodSeconds: 30
     failureThreshold: 15
     timeoutSeconds: 5
