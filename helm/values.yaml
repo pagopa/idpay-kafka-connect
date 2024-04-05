@@ -7,8 +7,8 @@ microservice-chart:
     handlerType: 'exec'
     exec:
         command:
-          - "/bin/sh"
-          - "-c"
+          - sh
+          - '-c'
           - /idpay-kafka-connect/execLivenessProbe.sh
     initialDelaySeconds: 60
     periodSeconds: 30
