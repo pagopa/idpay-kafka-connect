@@ -10,7 +10,10 @@ configurations {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.mongodb.kafka/mongo-kafka-connect
-    mongoKafkaConnect("org.mongodb.kafka:mongo-kafka-connect:1.5.1")
+    mongoKafkaConnect("org.mongodb.kafka:mongo-kafka-connect:1.5.1") {
+        exclude group: 'org.apache.avro', module: 'avro'
+    }
+    mongoKafkaConnect("org.apache.avro:avro:1.11.3")
 }
 
 task getMongoKafkaConnectDeps(type: Copy) {
