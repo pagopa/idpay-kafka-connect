@@ -5,10 +5,10 @@ WORKDIR /deps
 COPY build.gradle build.gradle
 RUN gradle getMongoKafkaConnectDeps
 
-RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.4.19/applicationinsights-agent-3.4.19.jar" \
+RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
 
-FROM debezium/connect-base:2.4.1.Final@sha256:52297b4d15b2eff0a19b44337e34a9cd3144696a70393ab9f4eee14d697abb0e
+FROM debezium/connect-base:2.6.0.Final@sha256:ea2d17592e93e06e93459f940704d9b57f2b30d4f4bb5e83699bfae28aeea568
 
 COPY --from=deps /deps/mongo-kafka-connect/ /kafka/connect/mongo-kafka-connect/
 COPY --from=deps /deps/applicationinsights-agent.jar .
