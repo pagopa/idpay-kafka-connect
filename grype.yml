@@ -1,3 +1,0 @@
-ignore:
-  # Actually we are using avro 1.11.3
-  - vulnerability: CVE-2023-39410  # solved in avro 1.11.3

@@ -7,14 +7,25 @@ repositories {
 configurations {
     mongoKafkaConnect
 }
-
 dependencies {
     // https://mvnrepository.com/artifact/org.mongodb.kafka/mongo-kafka-connect
     mongoKafkaConnect("org.mongodb.kafka:mongo-kafka-connect:1.5.1") {
+        exclude group: 'org.apache.kafka', module: 'connect-api'
         exclude group: 'org.apache.avro', module: 'avro'
     }
-    mongoKafkaConnect("org.apache.avro:avro:1.11.3")
+
+    // Dipendenza di Avro con esclusione di commons-compress
+    mongoKafkaConnect("org.apache.avro:avro:1.11.3") {
+        exclude group: 'org.apache.commons', module: 'commons-compress'
+    }
+
+    // Nuova dipendenza di commons-compress alla versione 1.26.1
+    mongoKafkaConnect("org.apache.commons:commons-compress:1.26.1")
+
+    // Aggiornamento di connect-api alla versione 3.7.0
+    mongoKafkaConnect("org.apache.kafka:connect-api:3.7.0")
 }
+
 
 task getMongoKafkaConnectDeps(type: Copy) {
     from configurations.mongoKafkaConnect
