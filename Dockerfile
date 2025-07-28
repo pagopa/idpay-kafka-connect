@@ -17,3 +17,5 @@ USER root
 RUN chmod 777 -R /kafka/connect/ && chown kafka:kafka -R applicationinsights-agent.jar
 RUN chmod 777 -R /tmp
 USER kafka
+
+LABEL description="Dockerfile di test per pipeline CI/CD."
