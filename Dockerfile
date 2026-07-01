@@ -10,8 +10,11 @@ RUN mkdir -p /deps/debezium-postgres && \
     | tar -xz -C /deps/debezium-postgres
 
 RUN mkdir -p /deps/kafka-connect-jdbc && \
-    curl -L https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/10.7.6/kafka-connect-jdbc-10.7.6.tar.gz \
-    | tar -xz --strip-components=1 -C /deps/kafka-connect-jdbc
+    apt-get update && apt-get install -y unzip && \
+    curl -Lf https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/10.7.6/kafka-connect-jdbc-10.7.6.zip --output /tmp/jdbc.zip && \
+    unzip /tmp/jdbc.zip -d /tmp/extracted && \
+    mv /tmp/extracted/confluentinc-kafka-connect-jdbc-10.7.6/* /deps/kafka-connect-jdbc/ && \
+    rm -rf /tmp/jdbc.zip /tmp/extracted
 
 RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
