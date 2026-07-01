@@ -24,6 +24,10 @@ dependencies {
 
     // Aggiornamento di connect-api alla versione 3.7.0
     mongoKafkaConnect("org.apache.kafka:connect-api:3.7.0")
+
+    mongoKafkaConnect("io.confluent:kafka-connect-jdbc:10.7.6") {
+        exclude group: 'org.apache.kafka', module: 'connect-api'
+    }
 }
 
 task getMongoKafkaConnectDeps(type: Copy) {
