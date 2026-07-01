@@ -5,15 +5,25 @@ WORKDIR /deps
 COPY build.gradle build.gradle
 RUN gradle getMongoKafkaConnectDeps
 
+RUN mkdir -p /deps/debezium-postgres && \
+    curl -L https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz \
+    | tar -xz -C /deps/debezium-postgres
+
 RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
 
 FROM debezium/connect-base:2.6.0.Final@sha256:ea2d17592e93e06e93459f940704d9b57f2b30d4f4bb5e83699bfae28aeea568
 
 COPY --from=deps /deps/mongo-kafka-connect/ /kafka/connect/mongo-kafka-connect/
+
+COPY --from=deps /deps/debezium-postgres/ /kafka/connect/debezium-postgres/
+
 COPY --from=deps /deps/applicationinsights-agent.jar .
 
 USER root
-RUN chmod 777 -R /kafka/connect/ && chown kafka:kafka -R applicationinsights-agent.jar
-RUN chmod 777 -R /tmp
+
+RUN chmod -R 777 /kafka/connect/
+RUN chmod -R 777 /tmp
+RUN chown kafka:kafka applicationinsights-agent.jar
+
 USER kafka
