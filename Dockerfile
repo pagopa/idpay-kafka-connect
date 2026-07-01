@@ -3,7 +3,6 @@ FROM gradle:8.4.0-jdk8-jammy@sha256:c10f5e897983c6b87008b2d604e6baf824d3d99d8525
 WORKDIR /deps
 
 COPY build.gradle build.gradle
-
 RUN gradle getMongoKafkaConnectDeps
 
 RUN mkdir -p /deps/debezium-postgres && \

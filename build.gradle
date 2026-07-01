@@ -15,7 +15,6 @@ dependencies {
         exclude group: 'org.apache.avro', module: 'avro'
     }
 
-    // Dipendenza di Avro con esclusione di commons-compress
     mongoKafkaConnect("org.apache.avro:avro:1.11.3") {
         exclude group: 'org.apache.commons', module: 'commons-compress'
     }
@@ -25,10 +24,6 @@ dependencies {
 
     // Aggiornamento di connect-api alla versione 3.7.0
     mongoKafkaConnect("org.apache.kafka:connect-api:3.7.0")
-
-    mongoKafkaConnect("io.aiven:jdbc-connector-for-apache-kafka:6.8.1") {
-        exclude group: 'org.apache.kafka', module: 'connect-api'
-    }
 }
 
 task getMongoKafkaConnectDeps(type: Copy) {
