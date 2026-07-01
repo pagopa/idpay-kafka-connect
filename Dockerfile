@@ -3,15 +3,12 @@ FROM gradle:8.4.0-jdk8-jammy@sha256:c10f5e897983c6b87008b2d604e6baf824d3d99d8525
 WORKDIR /deps
 
 COPY build.gradle build.gradle
+
 RUN gradle getMongoKafkaConnectDeps
 
 RUN mkdir -p /deps/debezium-postgres && \
     curl -L https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz \
     | tar -xz -C /deps/debezium-postgres
-
-RUN mkdir -p /deps/kafka-connect-jdbc && \
-    curl -Lf https://repo1.maven.org/maven2/io/aiven/jdbc-connector-for-apache-kafka/6.8.1/jdbc-connector-for-apache-kafka-6.8.1-tarball.tar.gz \
-    | tar -xz --strip-components=1 -C /deps/kafka-connect-jdbc
 
 RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
@@ -21,8 +18,6 @@ FROM debezium/connect-base:2.6.0.Final@sha256:ea2d17592e93e06e93459f940704d9b57f
 COPY --from=deps /deps/mongo-kafka-connect/ /kafka/connect/mongo-kafka-connect/
 
 COPY --from=deps /deps/debezium-postgres/ /kafka/connect/debezium-postgres/
-
-COPY --from=deps /deps/kafka-connect-jdbc/ /kafka/connect/kafka-connect-jdbc/
 
 COPY --from=deps /deps/applicationinsights-agent.jar .
 
