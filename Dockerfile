@@ -5,18 +5,16 @@ RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.6
 FROM gradle:8.4.0-jdk8-jammy@sha256:c10f5e897983c6b87008b2d604e6baf824d3d99d852543bc5cb3b6b1c45e5bcb AS deps
 WORKDIR /deps
 COPY build.gradle build.gradle
-RUN gradle getMongoKafkaConnectDeps
 
-RUN mkdir -p /deps/debezium-postgres && \
+RUN gradle getMongoKafkaConnectDeps && \
+    mkdir -p /deps/debezium-postgres && \
     curl -L https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz \
-    | tar -xz -C /deps/debezium-postgres
-
-RUN curl -L https://repo1.maven.org/maven2/org/apache/groovy/groovy/4.0.12/groovy-4.0.12.jar \
+    | tar -xz -C /deps/debezium-postgres && \
+    curl -L https://repo1.maven.org/maven2/org/apache/groovy/groovy/4.0.12/groovy-4.0.12.jar \
     --output "/deps/debezium-postgres/debezium-connector-postgres/groovy-4.0.12.jar" && \
     curl -L https://repo1.maven.org/maven2/org/apache/groovy/groovy-jsr223/4.0.12/groovy-jsr223-4.0.12.jar \
-    --output "/deps/debezium-postgres/debezium-connector-postgres/groovy-jsr223-4.0.12.jar"
-
-RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
+    --output "/deps/debezium-postgres/debezium-connector-postgres/groovy-jsr223-4.0.12.jar" && \
+    curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
 
 FROM debezium/connect-base:2.6.0.Final@sha256:ea2d17592e93e06e93459f940704d9b57f2b30d4f4bb5e83699bfae28aeea568
@@ -28,8 +26,8 @@ COPY --from=deps /deps/applicationinsights-agent.jar .
 COPY --from=confluent-downloader /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/ /kafka/connect/kafka-connect-jdbc/
 
 USER root
-RUN chmod -R 777 /kafka/connect/
-RUN chmod -R 777 /tmp
-RUN chown kafka:kafka applicationinsights-agent.jar
+RUN chmod -R 777 /kafka/connect/ && \
+    chmod -R 777 /tmp && \
+    chown kafka:kafka applicationinsights-agent.jar
 
 USER kafka
