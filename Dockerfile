@@ -11,6 +11,11 @@ RUN mkdir -p /deps/debezium-postgres && \
     curl -L https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz \
     | tar -xz -C /deps/debezium-postgres
 
+RUN curl -L https://repo1.maven.org/maven2/org/apache/groovy/groovy/4.0.12/groovy-4.0.12.jar \
+    --output "/deps/debezium-postgres/debezium-connector-postgres/groovy-4.0.12.jar" && \
+    curl -L https://repo1.maven.org/maven2/org/apache/groovy/groovy-jsr223/4.0.12/groovy-jsr223-4.0.12.jar \
+    --output "/deps/debezium-postgres/debezium-connector-postgres/groovy-jsr223-4.0.12.jar"
+
 RUN curl -L "https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.5.1/applicationinsights-agent-3.5.1.jar" \
     --output "applicationinsights-agent.jar"
 
