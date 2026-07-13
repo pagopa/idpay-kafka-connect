@@ -7,7 +7,6 @@ repositories {
 configurations {
     mongoKafkaConnect
 }
-
 dependencies {
     // https://mvnrepository.com/artifact/org.mongodb.kafka/mongo-kafka-connect
     mongoKafkaConnect("org.mongodb.kafka:mongo-kafka-connect:1.5.1") {
@@ -15,6 +14,7 @@ dependencies {
         exclude group: 'org.apache.avro', module: 'avro'
     }
 
+    // Dipendenza di Avro con esclusione di commons-compress
     mongoKafkaConnect("org.apache.avro:avro:1.11.3") {
         exclude group: 'org.apache.commons', module: 'commons-compress'
     }
