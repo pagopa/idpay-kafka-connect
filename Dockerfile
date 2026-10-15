@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka-connect-base:7.5.0 AS confluent-downloader
+FROM confluentinc/cp-kafka-connect-base:7.5.0@sha256:9708718aaa5e86eda89d07d47c09ef0185892ece77952a30517fcf21224ae967 AS confluent-downloader
 USER root
 RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.7.6
 
