@@ -15,7 +15,7 @@ dependencies {
     }
 
     // Dipendenza di Avro con esclusione di commons-compress
-    mongoKafkaConnect("org.apache.avro:avro:1.11.3") {
+    mongoKafkaConnect("org.apache.avro:avro:1.11.4") {
         exclude group: 'org.apache.commons', module: 'commons-compress'
     }
 
